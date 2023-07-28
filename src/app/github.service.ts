@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Organization } from './organization';
 
 import { Repository } from './repository';
 import { User } from './user';
@@ -12,7 +13,8 @@ export class GithubService {
   readonly username = 'codexshell';
   private apiUrl = 'https://api.github.com';
   private userUrl = this.apiUrl + '/users/' + this.username;
-  private repoUrl = this.userUrl + '/repos';
+  private reposUrl = this.userUrl + '/repos';
+  private orgsUrl = this.userUrl + '/orgs';
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +23,10 @@ export class GithubService {
   }
 
   getRepos(): Observable<Repository[]> {
-    return this.http.get<Repository[]>(this.repoUrl);
+    return this.http.get<Repository[]>(this.reposUrl);
+  }
+
+  getOrganizations(): Observable<Organization[]> {
+    return this.http.get<Organization[]>(this.orgsUrl);
   }
 }
